@@ -1,0 +1,12 @@
+# Core (required to run the demo)
+fastapi>=0.110
+uvicorn[standard]>=0.27
+python-multipart>=0.0.9
+pydantic>=2.6
+pymupdf>=1.24          # PDF text + image extraction
+python-dotenv>=1.0     # optional: load .env automatically
+
+# GenAI providers (install the one you use; both are optional —
+# without an API key the app runs on the built-in offline mock provider)
+anthropic>=0.40        # primary provider (Claude)
+# openai>=1.30         # uncomment to use the OpenAI provider instead

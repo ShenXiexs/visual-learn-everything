@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Visual Learn Everything</title>
+    <link rel="stylesheet" href="/styles.css" />
+    <!-- Mind-map rendering (enhancement). The app falls back to a built-in
+         tree renderer if these can't load, so it still works fully offline. -->
+    <script src="https://cdn.jsdelivr.net/npm/d3@7"></script>
+    <script src="https://cdn.jsdelivr.net/npm/markmap-view@0.18"></script>
+    <script src="https://cdn.jsdelivr.net/npm/markmap-lib@0.18/dist/browser/index.js"></script>
+  </head>
+  <body>
+    <header class="topbar">
+      <div class="brand">
+        <span class="logo">◆</span>
+        <span class="brand-name">Visual&nbsp;Learn&nbsp;Everything</span>
+      </div>
+      <div class="provider-pill" id="provider-pill" title="Active GenAI provider">…</div>
+    </header>
+
+    <main>
+      <!-- Upload view -->
+      <section id="upload-view" class="view">
+        <div class="hero">
+          <h1>Turn any document into a study session</h1>
+          <p class="subtitle">
+            Drop in a PDF, Markdown, or text file. We extract the content and
+            images, then use GenAI to build a mind map, summary, flashcards,
+            and a quiz — all interactive.
+          </p>
+        </div>
+
+        <div id="dropzone" class="dropzone">
+          <input type="file" id="file-input" accept=".pdf,.md,.markdown,.txt,.text" hidden />
+          <div class="dz-inner">
+            <div class="dz-icon">⬆</div>
+            <p class="dz-title">Drag &amp; drop a file here</p>
+            <p class="dz-sub">or <button type="button" id="browse-btn" class="link-btn">browse</button> — PDF · MD · TXT</p>
+          </div>
+        </div>
+
+        <div class="samples">
+          <span>No file handy?</span>
+          <button type="button" id="sample-btn" class="ghost-btn">Try the sample document</button>
+        </div>
+
+        <div id="error-box" class="error-box hidden"></div>
+      </section>
+
+      <!-- Loading view -->
+      <section id="loading-view" class="view hidden">
+        <div class="spinner"></div>
+        <p class="loading-text" id="loading-text">Reading your document…</p>
+        <p class="loading-sub" id="loading-sub"></p>
+      </section>
+
+      <!-- Result view -->
+      <section id="result-view" class="view hidden">
+        <div class="result-header">
+          <div>
+            <h2 id="result-title">—</h2>
+            <p class="result-meta" id="result-meta"></p>
+          </div>
+          <button type="button" id="new-btn" class="ghost-btn">＋ New document</button>
+        </div>
+
+        <div id="truncation-note" class="note hidden"></div>
+
+        <nav class="tabs" id="tabs">
+          <button class="tab active" data-tab="mindmap">Mind Map</button>
+          <button class="tab" data-tab="summary">Summary</button>
+          <button class="tab" data-tab="concepts">Key Concepts</button>
+          <button class="tab" data-tab="flashcards">Flashcards</button>
+          <button class="tab" data-tab="quiz">Quiz</button>
+          <button class="tab" data-tab="images">Images</button>
+        </nav>
+
+        <div class="panels">
+          <div class="panel active" data-panel="mindmap">
+            <svg id="mindmap-svg"></svg>
+            <div id="mindmap-fallback" class="mindmap-fallback hidden"></div>
+          </div>
+          <div class="panel" data-panel="summary">
+            <div id="summary-content" class="prose"></div>
+          </div>
+          <div class="panel" data-panel="concepts">
+            <div id="concepts-content" class="concept-grid"></div>
+          </div>
+          <div class="panel" data-panel="flashcards">
+            <div id="flashcards-content" class="flashcard-grid"></div>
+          </div>
+          <div class="panel" data-panel="quiz">
+            <div id="quiz-content" class="quiz-list"></div>
+            <div id="quiz-score" class="quiz-score hidden"></div>
+          </div>
+          <div class="panel" data-panel="images">
+            <div id="images-content" class="image-grid"></div>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer class="footer">
+      <span>visual-learn-everything · open source</span>
+    </footer>
+
+    <script src="/app.js"></script>
+  </body>
+</html>
